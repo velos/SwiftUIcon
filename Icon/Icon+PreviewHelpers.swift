@@ -49,8 +49,12 @@ public struct CanvasProxy {
         return proxy.size
     }
 
+    public var scale: CGFloat {
+        return self.actual.width / self.expected.width
+    }
+
     public subscript(_ points: CGFloat) -> CGFloat {
-        return points * (self.actual.width / self.expected.width)
+        return points * scale
     }
 }
 

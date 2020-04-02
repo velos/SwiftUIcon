@@ -170,7 +170,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/../Icon/Icon.swift",
+				"$(PROJECT_DIR)/../Icon/Icon.swift",
 			);
 			name = "Generate Icon";
 			outputFileListPaths = (
