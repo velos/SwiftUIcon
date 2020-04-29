@@ -8,7 +8,7 @@
 
 ## Getting Started
 
-Added this to your project is currently a manual process and requires 3 steps:
+Adding this to your project is currently a manual process and requires 3 steps:
 
 1. Download and expand the [latest release zip](https://github.com/velos/SwiftUIcon/releases/latest) and drag the `Icon` folder into the root of your project, copying the files into the project, creating a group and adding the files to your App target.
 1. Un-include the `generate.swift` and `IconGenerator.swift` files from your App's target since those are only going to be run from the Run Script build phase and won't compile as part of your app.
