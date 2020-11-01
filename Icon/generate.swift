@@ -5,6 +5,8 @@
 //  Copyright © 2020 Velos Mobile LLC / https://velosmobile.com / All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import Foundation
 
 let env = ProcessInfo.processInfo.environment
@@ -25,6 +27,7 @@ if deviceFamily.contains("2") {
     idioms.insert(.iPad)
 }
 
+idioms.insert(.mac)
 idioms.insert(.marketing)
 
 let set = IconSet(idioms: idioms, view: Icon())
