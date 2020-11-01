@@ -17,6 +17,8 @@ guard let deviceFamily = env["TARGETED_DEVICE_FAMILY"],
         exit(1)
 }
 
+let macCatalyst = env["SUPPORTS_MACCATALYST"]
+
 var idioms: Set<Idiom> = [.marketing]
 
 if deviceFamily.contains("1") {
@@ -27,7 +29,10 @@ if deviceFamily.contains("2") {
     idioms.insert(.iPad)
 }
 
-idioms.insert(.mac)
+if macCatalyst == "YES" {
+    idioms.insert(.mac)
+}
+
 idioms.insert(.marketing)
 
 let set = IconSet(idioms: idioms, view: Icon())
