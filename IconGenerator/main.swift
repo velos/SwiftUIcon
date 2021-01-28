@@ -4,6 +4,7 @@ import Foundation
 let env = ProcessInfo.processInfo.environment
 
 guard
+    let assets = env["SCRIPT_OUPUT_FILE_0"],
     let deviceFamily = env["TARGETED_DEVICE_FAMILY"],
     let projectPath = env["PROJECT_DIR"],
     let project = env["PROJECT"] else {
@@ -21,13 +22,12 @@ if deviceFamily.contains("2") {
 }
 
 idioms.insert(.marketing)
-#if GENERATE
-let set = IconSet(idioms: idioms, view: Icon())
 
-try! set.write(
-    to: URL(fileURLWithPath: projectPath)
-        .appendingPathComponent(project)
-        .appendingPathComponent("Assets.xcassets")
-)
-#endif
+if #available(OSX 10.15, *) {
+    let set = IconSet(idioms: idioms, view: Icon())
+    try! set.write(
+        to: URL(fileURLWithPath: assets)
+    )
+}
+
 

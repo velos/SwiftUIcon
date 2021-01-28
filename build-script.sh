@@ -4,15 +4,20 @@
 TMPFILE=`mktemp /tmp/SwiftUIcon.swift.XXXXXX` || exit 1
 trap "rm -f $TMPFILE" EXIT
 
-if [[ -z "$SCRIPT_INPUT_FILE_0" && -s "$SCRIPT_INPUT_FILE_0" ]]
-then
+
+[[ -s "$SCRIPT_INPUT_FILE_0" ]] || {
     echo "error: You must specify your Icon.swift as the first Input File in the Build Phase."
     exit 1
-fi
+}
 
-HELPER = %CD% + "\Icon\Icon+PreviewHelpers.swift"
-GENERATOR = %CD% + "\IconGenerator\IconGenerator.swift"
-MAIN = %CD% + "\IconGenerator\main.swift"
+[[ -s "$SCRIPT_OUPUT_FILE_0" ]] || {
+    echo "error: You must specify your Assets file as the first Output File in the Build Phase."
+    exit 1
+}
+
+HELPER=$PWD/Icon/Icon+PreviewHelpers.swift
+GENERATOR=$PWD/IconGenerator/IconGenerator.swift
+MAIN=$PWD/IconGenerator/main.swift
 
 cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN > $TMPFILE
 
