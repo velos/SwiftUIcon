@@ -10,7 +10,7 @@ trap "rm -f $TMPFILE" EXIT
     exit 1
 }
 
-[[ -s "$SCRIPT_OUPUT_FILE_0" ]] || {
+[[ -s "$SCRIPT_OUTPUT_FILE_0" ]] || {
     echo "error: You must specify your Assets file as the first Output File in the Build Phase."
     exit 1
 }
