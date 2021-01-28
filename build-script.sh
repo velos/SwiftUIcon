@@ -10,6 +10,10 @@ then
     exit 1
 fi
 
-cat ${SCRIPT_INPUT_FILE_0%/*}/*.swift > $TMPFILE
+HELPER = %CD% + "\Icon\Icon+PreviewHelpers.swift"
+GENERATOR = %CD% + "\IconGenerator\IconGenerator.swift"
+MAIN = %CD% + "\IconGenerator\main.swift"
+
+cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN > $TMPFILE
 
 xcrun -sdk macosx swift $TMPFILE
