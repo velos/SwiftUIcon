@@ -8,10 +8,8 @@
 
 ## Getting Started
 
-Adding this to your project is currently a manual process and requires 3 steps:
-
 1. Add SwiftUIcon using Swift Package Manager
-2. Add a Run Script build phase before your Copy Resources phase and specify the path to `Icon.swift` as the first Input File (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Icon/Icon.swift`) and the Assets.xcassets as the output file (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Assets.xcassets`):
+2. Add a Run Script build phase before your Copy Resources phase and specify the path to `Icon.swift` as the Input File (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Icon/Icon.swift`) and the `Assets.xcassets` as the output file (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Assets.xcassets`):
 
 ```bash
 cd "${BUILD_ROOT}"/../../SourcePackages/checkouts/SwiftUIcon
