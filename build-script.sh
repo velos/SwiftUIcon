@@ -22,6 +22,6 @@ MAIN=$PWD/IconGenerator/main.swift
 cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN > $TMPFILE
 
 # Remove import that is most likely in the input file
-echo "$(grep -v "pattern" $TMPFILE)" > $TMPFILE
+echo "$(grep -v "import\sSwiftUIcon" $TMPFILE)" >$TMPFILE
 
 xcrun -sdk macosx swift $TMPFILE
