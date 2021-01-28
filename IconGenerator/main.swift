@@ -4,11 +4,13 @@ import Foundation
 let env = ProcessInfo.processInfo.environment
 
 guard
-    let assets = env["SCRIPT_OUPUT_FILE_0"],
+    let assets = env["SCRIPT_OUTPUT_FILE_0"],
     let deviceFamily = env["TARGETED_DEVICE_FAMILY"],
     let projectPath = env["PROJECT_DIR"],
-    let project = env["PROJECT"] else {
-        exit(1)
+    let project = env["PROJECT"]
+else {
+    print("error: Missing environment variables, this should have been caught by the build-script.sh")
+    exit(1)
 }
 
 var idioms: Set<Idiom> = [.marketing]
@@ -25,7 +27,8 @@ idioms.insert(.marketing)
 
 if #available(OSX 10.15, *) {
     let set = IconSet(idioms: idioms, view: Icon())
-    try! set.write(
+    
+    try set.write(
         to: URL(fileURLWithPath: assets)
     )
 }
