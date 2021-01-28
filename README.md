@@ -10,26 +10,13 @@
 
 Adding this to your project is currently a manual process and requires 3 steps:
 
-1. Download and expand the [latest release zip](https://github.com/velos/SwiftUIcon/releases/latest) and drag the `Icon` folder into the root of your project, copying the files into the project, creating a group and adding the files to your App target.
-1. Un-include the `generate.swift` and `IconGenerator.swift` files from your App's target since those are only going to be run from the Run Script build phase and won't compile as part of your app.
-1. Add a Run Script build phase before your Copy Resources phase and specify the path to `Icon.swift` as the first Input File (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Icon/Icon.swift`):
+1. Add SwiftUIcon using Swift Package Manager
+2. Add a Run Script build phase before your Copy Resources phase and specify the path to `Icon.swift` as the first Input File (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Icon/Icon.swift`) and the Assets.xcassets as the output file (probably `$(PROJECT_DIR)/$(PRODUCT_NAME)/Assets.xcassets`):
 
 ```bash
-[[ "$ENABLE_PREVIEWS" = "NO" ]] || exit 0
-[[ "$MAC_OS_X_VERSION_MAJOR" -ge "101500" ]] || exit 0
-
-TMPFILE=`mktemp /tmp/SwiftUIcon.swift.XXXXXX` || exit 1
-trap "rm -f $TMPFILE" EXIT
-
-if [ -z "$SCRIPT_INPUT_FILE_0" ]
-then
-    echo "error: You must specify your Icon.swift as the first Input File in the Build Phase."
-    exit 1
-fi
-
-cat ${SCRIPT_INPUT_FILE_0%/*}/*.swift > $TMPFILE
-
-xcrun -sdk macosx swift $TMPFILE
+cd "${BUILD_ROOT}"/../../SourcePackages/checkouts/SwiftUIcon
+chmod +x build-script.sh
+./build-script.sh
 ```
 <p align="center">
   <img src="images/build-phase.jpg">
