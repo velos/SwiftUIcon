@@ -5,8 +5,6 @@
 //  Copyright © 2020 Velos Mobile LLC / https://velosmobile.com / All rights reserved.
 //
 
-// swiftlint:disable line_length nesting
-
 import Foundation
 import SwiftUI
 
