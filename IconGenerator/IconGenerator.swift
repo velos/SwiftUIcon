@@ -18,6 +18,7 @@ enum Idiom: String {
 }
 
 /// An IconSet based around a View for a given set of idioms
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 struct IconSet<Content: View>: Encodable {
 
     /// The View to use when generating the IconSet
@@ -202,6 +203,7 @@ enum GenerationError: Error {
     case couldNotGeneratePNG
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
 
     /// Generates an image from the current View

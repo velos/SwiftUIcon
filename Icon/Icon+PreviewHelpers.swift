@@ -7,6 +7,35 @@
 
 import SwiftUI
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+public struct IconPreviews<Icon: View>: View {
+    var icon: () -> Icon
+    
+    public init(icon: @autoclosure @escaping () -> Icon) {
+        self.icon = icon
+    }
+    
+    public var body: some View {
+        Group {
+            icon()
+                .previewIcon()
+                .previewLayout(.sizeThatFits)
+
+            icon()
+                .previewHomescreen()
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.purple, .orange]),
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
+                )
+                .previewLayout(.fixed(width: 500, height: 500))
+        }
+    }
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 private enum Constants {
     static let radiusFactor: CGFloat = 4.3
     static let appNameFont: Font = .system(size: 18, weight: .medium)
@@ -14,6 +43,7 @@ private enum Constants {
     static let stackDimension: CGFloat = 1024
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public struct IconStack<IconContent>: View where IconContent: View {
 
     public var body: some View {
@@ -35,6 +65,7 @@ public struct IconStack<IconContent>: View where IconContent: View {
     }
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public struct CanvasProxy {
     private let proxy: GeometryProxy
     public let expected: CGSize
@@ -58,6 +89,7 @@ public struct CanvasProxy {
     }
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
 
     /// Frames the icon and adds a continuous rounded rectangle to approximate the real icon shape.
@@ -70,6 +102,7 @@ extension View {
     }
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
 
     /// Previews the icon using `.previewLayout()` with a `.fixed(width:height:)` layout, clipping to an approximation of the Apple icon shape
