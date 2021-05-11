@@ -1,4 +1,3 @@
-
 import Foundation
 
 let env = ProcessInfo.processInfo.environment
@@ -13,6 +12,8 @@ else {
     exit(1)
 }
 
+let macCatalyst = env["SUPPORTS_MACCATALYST"]
+
 var idioms: Set<Idiom> = [.marketing]
 
 if deviceFamily.contains("1") {
@@ -23,7 +24,9 @@ if deviceFamily.contains("2") {
     idioms.insert(.iPad)
 }
 
-idioms.insert(.marketing)
+if macCatalyst == "YES" {
+    idioms.insert(.mac)
+}
 
 if #available(OSX 10.15, *) {
     let set = IconSet(idioms: idioms, view: Icon())
@@ -32,5 +35,3 @@ if #available(OSX 10.15, *) {
         to: URL(fileURLWithPath: assets)
     )
 }
-
-

@@ -13,6 +13,7 @@ import SwiftUI
 enum Idiom: String {
     case iPad = "ipad"
     case iPhone = "iphone"
+    case mac = "mac"
     case marketing = "ios-marketing"
 }
 
@@ -45,7 +46,6 @@ struct IconSet<Content: View>: Encodable {
 
             .init(idiom: .iPad, size: CGSize(width: 83.5, height: 83.5), scale: .twoX, placeholder: !idioms.contains(.iPad)),
 
-
             .init(idiom: .iPhone, size: CGSize(width: 20, height: 20), scale: .twoX, placeholder: !idioms.contains(.iPhone)),
             .init(idiom: .iPhone, size: CGSize(width: 20, height: 20), scale: .threeX, placeholder: !idioms.contains(.iPhone)),
 
@@ -57,6 +57,21 @@ struct IconSet<Content: View>: Encodable {
 
             .init(idiom: .iPhone, size: CGSize(width: 60, height: 60), scale: .twoX, placeholder: !idioms.contains(.iPhone)),
             .init(idiom: .iPhone, size: CGSize(width: 60, height: 60), scale: .threeX, placeholder: !idioms.contains(.iPhone)),
+
+            .init(idiom: .mac, size: CGSize(width: 16, height: 16), scale: .oneX, placeholder: !idioms.contains(.mac)),
+            .init(idiom: .mac, size: CGSize(width: 16, height: 16), scale: .twoX, placeholder: !idioms.contains(.mac)),
+
+            .init(idiom: .mac, size: CGSize(width: 32, height: 32), scale: .oneX, placeholder: !idioms.contains(.mac)),
+            .init(idiom: .mac, size: CGSize(width: 32, height: 32), scale: .twoX, placeholder: !idioms.contains(.mac)),
+
+            .init(idiom: .mac, size: CGSize(width: 128, height: 128), scale: .oneX, placeholder: !idioms.contains(.mac)),
+            .init(idiom: .mac, size: CGSize(width: 128, height: 128), scale: .twoX, placeholder: !idioms.contains(.mac)),
+
+            .init(idiom: .mac, size: CGSize(width: 256, height: 256), scale: .oneX, placeholder: !idioms.contains(.mac)),
+            .init(idiom: .mac, size: CGSize(width: 256, height: 256), scale: .twoX, placeholder: !idioms.contains(.mac)),
+
+            .init(idiom: .mac, size: CGSize(width: 512, height: 512), scale: .oneX, placeholder: !idioms.contains(.mac)),
+            .init(idiom: .mac, size: CGSize(width: 512, height: 512), scale: .twoX, placeholder: !idioms.contains(.mac)),
 
             .init(idiom: .marketing, size: CGSize(width: 1024, height: 1024), scale: .oneX, placeholder: !idioms.contains(.marketing))
         ]
@@ -140,7 +155,7 @@ struct IconSet<Content: View>: Encodable {
 
         for image in images {
             if !image.placeholder, let filename = image.filename {
-                let data = try content.generateImageData(size: image.size * image.scale.multiplier)
+                let data = try content.generateImageData(size: image.size * image.scale.multiplier, roundedFrame: image.idiom == .mac)
                 try data.write(to: iconSetUrl.appendingPathComponent(filename))
             }
         }
@@ -193,8 +208,11 @@ extension View {
 
     /// Generates an image from the current View
     /// - Parameter size: The size of the image to generate
-    func generateImageData(size: CGSize) throws -> Data {
-        let wrapper = NSHostingView(rootView: self)
+    /// - Parameter roundedFrame: Whether the image should be clipped to macOS like rounded frame or not
+    func generateImageData(size: CGSize, roundedFrame: Bool) throws -> Data {
+        let wrapper = roundedFrame
+            ? NSHostingView(rootView: self.frameIcon(dimension: min(size.width, size.height) * 0.8))
+            : NSHostingView(rootView: self)
         wrapper.frame = CGRect(origin: .zero, size: size)
 
         let frame = CGRect(origin: .zero, size: wrapper.convertFromBacking(wrapper.bounds.size))

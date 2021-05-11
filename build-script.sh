@@ -15,13 +15,13 @@ trap "rm -f $TMPFILE" EXIT
     exit 1
 }
 
-HELPER=$PWD/Icon/Icon+PreviewHelpers.swift
-GENERATOR=$PWD/IconGenerator/IconGenerator.swift
-MAIN=$PWD/IconGenerator/main.swift
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN > $TMPFILE
+HELPER=$SCRIPT_DIR/Icon/Icon+PreviewHelpers.swift
+GENERATOR=$SCRIPT_DIR/IconGenerator/IconGenerator.swift
+MAIN=$SCRIPT_DIR/IconGenerator/main.swift
 
-# Remove import that is most likely in the input file
-echo "$(grep -v "import\sSwiftUIcon" $TMPFILE)" >$TMPFILE
+# Concatenate all files and remove import that is most likely in the input file
+cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN | grep -v "import\sSwiftUIcon" > $TMPFILE
 
 xcrun -sdk macosx swift $TMPFILE || echo "error: Failed to generate icons from $SCRIPT_INPUT_FILE_0 into $SCRIPT_OUTPUT_FILE_0"

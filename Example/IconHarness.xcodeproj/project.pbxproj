@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1138EA8F2436555900F9D949 /* Icon+PreviewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138EA8B2436555900F9D949 /* Icon+PreviewHelpers.swift */; };
-		1138EA902436555900F9D949 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138EA8C2436555900F9D949 /* Icon.swift */; };
+		110076CB264A04EF0067CE56 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110076CA264A04EF0067CE56 /* Icon.swift */; };
+		110076CE264A05030067CE56 /* SwiftUIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 110076CD264A05030067CE56 /* SwiftUIcon */; };
 		11DC1FFB2345959E00848840 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DC1FFA2345959E00848840 /* AppDelegate.swift */; };
 		11DC1FFD2345959E00848840 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DC1FFC2345959E00848840 /* SceneDelegate.swift */; };
 		11DC1FFF2345959E00848840 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DC1FFE2345959E00848840 /* ContentView.swift */; };
@@ -18,10 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1138EA8B2436555900F9D949 /* Icon+PreviewHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Icon+PreviewHelpers.swift"; sourceTree = "<group>"; };
-		1138EA8C2436555900F9D949 /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		1138EA8D2436555900F9D949 /* IconGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGenerator.swift; sourceTree = "<group>"; };
-		1138EA8E2436555900F9D949 /* generate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = generate.swift; sourceTree = "<group>"; };
+		110076C9264A04A10067CE56 /* SwiftUIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftUIcon; path = ../..; sourceTree = "<group>"; };
+		110076CA264A04EF0067CE56 /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		11DC1FF72345959E00848840 /* IconHarness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IconHarness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11DC1FFA2345959E00848840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11DC1FFC2345959E00848840 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +28,7 @@
 		11DC20032345959F00848840 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		11DC20062345959F00848840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11DC20082345959F00848840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77079A0B26448A650094512F /* IconHarness.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IconHarness.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,22 +36,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				110076CE264A05030067CE56 /* SwiftUIcon in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1138EA8A2436555900F9D949 /* Icon */ = {
+		110076CC264A05030067CE56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1138EA8C2436555900F9D949 /* Icon.swift */,
-				1138EA8B2436555900F9D949 /* Icon+PreviewHelpers.swift */,
-				1138EA8D2436555900F9D949 /* IconGenerator.swift */,
-				1138EA8E2436555900F9D949 /* generate.swift */,
 			);
-			name = Icon;
-			path = ../../Icon;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		11DC1FEE2345959E00848840 = {
@@ -60,6 +55,7 @@
 			children = (
 				11DC1FF92345959E00848840 /* IconHarness */,
 				11DC1FF82345959E00848840 /* Products */,
+				110076CC264A05030067CE56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,13 +70,15 @@
 		11DC1FF92345959E00848840 /* IconHarness */ = {
 			isa = PBXGroup;
 			children = (
+				77079A0B26448A650094512F /* IconHarness.entitlements */,
 				11DC1FFA2345959E00848840 /* AppDelegate.swift */,
 				11DC1FFC2345959E00848840 /* SceneDelegate.swift */,
 				11DC1FFE2345959E00848840 /* ContentView.swift */,
-				1138EA8A2436555900F9D949 /* Icon */,
+				110076CA264A04EF0067CE56 /* Icon.swift */,
 				11DC20002345959F00848840 /* Assets.xcassets */,
 				11DC20052345959F00848840 /* LaunchScreen.storyboard */,
 				11DC20082345959F00848840 /* Info.plist */,
+				110076C9264A04A10067CE56 /* SwiftUIcon */,
 				11DC20022345959F00848840 /* Preview Content */,
 			);
 			path = IconHarness;
@@ -111,6 +109,9 @@
 			dependencies = (
 			);
 			name = IconHarness;
+			packageProductDependencies = (
+				110076CD264A05030067CE56 /* SwiftUIcon */,
+			);
 			productName = IconHarness;
 			productReference = 11DC1FF72345959E00848840 /* IconHarness.app */;
 			productType = "com.apple.product-type.application";
@@ -122,7 +123,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Velos Mobile LLC";
 				TargetAttributes = {
 					11DC1FF62345959E00848840 = {
@@ -170,16 +171,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(PROJECT_DIR)/../Icon/Icon.swift",
+				"$(PROJECT_DIR)/IconHarness/Icon.swift",
 			);
 			name = "Generate Icon";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(PROJECT_DIR)/IconHarness/Assets.xcassets",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[[ \"$ENABLE_PREVIEWS\" = \"NO\" ]] || exit 0\n[[ \"$MAC_OS_X_VERSION_MAJOR\" -ge \"101500\" ]] || exit 0\n\nTMPFILE=`mktemp /tmp/SwiftUIcon.swift.XXXXXX` || exit 1\ntrap \"rm -f $TMPFILE\" EXIT\n\nif [ -z \"$SCRIPT_INPUT_FILE_0\" ]\nthen\n    echo \"error: You must specify your Icon.swift as the first Input File in the Build Phase.\"\n    exit 1\nfi\n\ncat ${SCRIPT_INPUT_FILE_0%/*}/*.swift > $TMPFILE\n\nxcrun -sdk macosx swift $TMPFILE\n";
+			shellScript = "# For example purposes, this references a local file. But in your app, you'd do something like:\n# \"${BUILD_ROOT%Build/*}SourcePackages/checkouts/SwiftUIcon/build-script.sh\"\n\n\"${PROJECT_DIR}/../build-script.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -189,9 +191,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				11DC1FFB2345959E00848840 /* AppDelegate.swift in Sources */,
-				1138EA8F2436555900F9D949 /* Icon+PreviewHelpers.swift in Sources */,
 				11DC1FFD2345959E00848840 /* SceneDelegate.swift in Sources */,
-				1138EA902436555900F9D949 /* Icon.swift in Sources */,
+				110076CB264A04EF0067CE56 /* Icon.swift in Sources */,
 				11DC1FFF2345959E00848840 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +237,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -296,6 +298,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -328,6 +331,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IconHarness/IconHarness.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"IconHarness/Preview Content\"";
 				DEVELOPMENT_TEAM = 32R66SNDGS;
@@ -339,8 +343,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacwhite.IconHarness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -348,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = IconHarness/IconHarness.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"IconHarness/Preview Content\"";
 				DEVELOPMENT_TEAM = 32R66SNDGS;
@@ -359,8 +365,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacwhite.IconHarness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -386,6 +393,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		110076CD264A05030067CE56 /* SwiftUIcon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftUIcon;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11DC1FEF2345959E00848840 /* Project object */;
 }
