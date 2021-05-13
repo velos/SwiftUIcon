@@ -17,9 +17,9 @@ trap "rm -f $TMPFILE" EXIT
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-HELPER="$SCRIPT_DIR/Icon/Icon+PreviewHelpers.swift"
-GENERATOR="$SCRIPT_DIR/IconGenerator/IconGenerator.swift"
-MAIN="$SCRIPT_DIR/IconGenerator/main.swift"
+HELPER="$SCRIPT_DIR/Sources/SwiftUIcon/Icon+PreviewHelpers.swift"
+GENERATOR="$SCRIPT_DIR/Sources/SwiftUIcon/IconGenerator.swift"
+MAIN="$SCRIPT_DIR/Sources/SwiftUIcon/main.swift"
 
 # Concatenate all files and remove import that is most likely in the input file
 cat $SCRIPT_INPUT_FILE_0 $HELPER $GENERATOR $MAIN | grep -v "import\sSwiftUIcon" > $TMPFILE
