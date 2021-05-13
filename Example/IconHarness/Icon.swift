@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftUIcon
 
-struct Icon : View {
+struct Icon: View {
 
     var body: some View {
         /// Note: All of these assume a canvas size of 1024.
