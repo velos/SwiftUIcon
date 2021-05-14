@@ -1,13 +1,18 @@
+//
+//  main.swift
+//
+//  Created by Zac White.
+//  Copyright © 2020 Velos Mobile LLC / https://velosmobile.com / All rights reserved.
+//
+
 import Foundation
 
 let env = ProcessInfo.processInfo.environment
 
-guard
-    let assets = env["SCRIPT_OUTPUT_FILE_0"],
-    let deviceFamily = env["TARGETED_DEVICE_FAMILY"],
-    let projectPath = env["PROJECT_DIR"],
-    let project = env["PROJECT"]
-else {
+guard let assets = env["SCRIPT_OUTPUT_FILE_0"],
+      let deviceFamily = env["TARGETED_DEVICE_FAMILY"],
+      let projectPath = env["PROJECT_DIR"],
+      let project = env["PROJECT"] else {
     print("error: Missing environment variables, this should have been caught by the build-script.sh")
     exit(1)
 }

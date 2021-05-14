@@ -171,13 +171,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(PROJECT_DIR)/IconHarness/Icon.swift",
+				"$(PROJECT_DIR)/$(PRODUCT_NAME)/Icon.swift",
 			);
 			name = "Generate Icon";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(PROJECT_DIR)/IconHarness/Assets.xcassets",
+				"$(PROJECT_DIR)/$(PRODUCT_NAME)/Assets.xcassets",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -341,7 +341,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacwhite.IconHarness;
+				PRODUCT_BUNDLE_IDENTIFIER = com.velosmobile.IconHarness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -363,7 +363,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacwhite.IconHarness;
+				PRODUCT_BUNDLE_IDENTIFIER = com.velosmobile.IconHarness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
