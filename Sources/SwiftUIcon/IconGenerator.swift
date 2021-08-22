@@ -215,8 +215,7 @@ extension View {
             : NSHostingView(rootView: self)
         wrapper.frame = CGRect(origin: .zero, size: size)
 
-        let frame = CGRect(origin: .zero, size: wrapper.convertFromBacking(wrapper.bounds.size))
-        guard let bitmapRepresentation = wrapper.bitmapImageRepForCachingDisplay(in: frame) else {
+        guard let bitmapRepresentation = wrapper.bitmapImageRepForCachingDisplay(in: wrapper.bounds) else {
             throw GenerationError.couldNotGetImageRep
         }
 
