@@ -155,8 +155,11 @@ struct IconSet<Content: View>: Encodable {
 
         for image in images {
             if !image.placeholder, let filename = image.filename {
-                let data = try content.generateImageData(size: image.size * image.scale.multiplier, roundedFrame: image.idiom == .mac)
-                try data.write(to: iconSetUrl.appendingPathComponent(filename))
+                try content.writeImage(
+                    to: iconSetUrl.appendingPathComponent(filename),
+                    size: image.size * image.scale.multiplier,
+                    roundedFrame: image.idiom == .mac
+                )
             }
         }
 
@@ -201,33 +204,64 @@ extension CGSize {
 enum GenerationError: Error {
     case couldNotGetImageRep
     case couldNotGeneratePNG
+    case couldNotWriteImage
 }
 
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
 
     /// Generates an image from the current View
+    /// - Parameter url: The file url to write the image
     /// - Parameter size: The size of the image to generate
     /// - Parameter roundedFrame: Whether the image should be clipped to macOS like rounded frame or not
-    func generateImageData(size: CGSize, roundedFrame: Bool) throws -> Data {
-        let wrapper = roundedFrame
-            ? NSHostingView(rootView: self.frameIcon(dimension: min(size.width, size.height) * 0.8))
-            : NSHostingView(rootView: self)
-        wrapper.frame = CGRect(origin: .zero, size: size)
+    public func writeImage(to url: URL, size: CGSize, roundedFrame: Bool = false) throws {
 
-        let frame = CGRect(origin: .zero, size: wrapper.convertFromBacking(wrapper.bounds.size))
-        guard let bitmapRepresentation = wrapper.bitmapImageRepForCachingDisplay(in: frame) else {
+        // works around FB9488576 by scaling up the view, and then scaling down the rasterized image
+        let upscaledSize = CGSize(width: size.width * 4.0, height: size.height * 4.0)
+
+        let wrapper = roundedFrame
+            ? NSHostingView(rootView: self.frameIcon(dimension: min(upscaledSize.width, upscaledSize.height) * 0.8))
+            : NSHostingView(rootView: self)
+        wrapper.frame = CGRect(origin: .zero, size: upscaledSize)
+
+        guard let bitmapRepresentation = wrapper.bitmapImageRepForCachingDisplay(in: wrapper.bounds) else {
             throw GenerationError.couldNotGetImageRep
         }
 
         bitmapRepresentation.size = wrapper.bounds.size
         wrapper.cacheDisplay(in: wrapper.bounds, to: bitmapRepresentation)
 
-        guard let data = bitmapRepresentation.representation(using: .png, properties: [:]) else {
+        guard let image = bitmapRepresentation.cgImage else {
             throw GenerationError.couldNotGeneratePNG
         }
 
-        return data
+        // generate a CGContext and draw the image into it at the desired size
+        let context = CGContext(
+            data: nil,
+            width: Int(size.width),
+            height: Int(size.height),
+            bitsPerComponent: image.bitsPerComponent,
+            bytesPerRow: 0,
+            space: image.colorSpace ?? CGColorSpace(name: CGColorSpace.sRGB)!,
+            bitmapInfo: image.bitmapInfo.rawValue
+        )
+
+        context?.interpolationQuality = .high
+        context?.draw(image, in: CGRect(origin: .zero, size: size))
+
+        guard let scaledImage = context?.makeImage() else {
+            throw GenerationError.couldNotGeneratePNG
+        }
+
+        // write the image to disk
+        guard let destination = CGImageDestinationCreateWithURL(url as CFURL, kUTTypePNG, 1, nil) else {
+            throw GenerationError.couldNotWriteImage
+        }
+
+        CGImageDestinationAddImage(destination, scaledImage, nil)
+        if !CGImageDestinationFinalize(destination) {
+            throw GenerationError.couldNotWriteImage
+        }
     }
 }
 
