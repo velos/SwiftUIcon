@@ -49,7 +49,8 @@ public struct IconStack<IconContent>: View where IconContent: View {
     public var body: some View {
         return GeometryReader { proxy in
             ZStack(alignment: .center) {
-                self.content(CanvasProxy(proxy: proxy, expected: CGSize(width: Constants.stackDimension, height: Constants.stackDimension)))
+                let canvas = CanvasProxy(proxy: proxy, expected: CGSize(width: Constants.stackDimension, height: Constants.stackDimension))
+                self.content(canvas).environment(\.canvas, canvas)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         }
@@ -175,5 +176,42 @@ extension View {
             }
         }
         .padding(50)
+    }
+}
+
+// MARK: - Canvas environment
+
+private struct CanvasKey: EnvironmentKey {
+    static var defaultValue: CanvasProtocol = EmptyCanvasProxy()
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension EnvironmentValues {
+
+    /// Returns canvas related to the current icon.
+    ///
+    /// If accessed from a view that is outside of ``IconStack`` hierarchy, will give canvas that returns original values.
+    @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+    public internal(set) var canvas: CanvasProtocol {
+        get { self[CanvasKey.self] }
+        set { self[CanvasKey.self] = newValue }
+    }
+}
+
+// MARK: Canvas protocol
+
+public protocol CanvasProtocol {
+    var scale: CGFloat { get }
+    subscript(_ points: CGFloat) -> CGFloat { get }
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension CanvasProxy: CanvasProtocol {}
+
+private struct EmptyCanvasProxy: CanvasProtocol {
+    var scale: CGFloat { 1 }
+
+    subscript(points: CGFloat) -> CGFloat {
+        points
     }
 }
